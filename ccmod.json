@@ -1,0 +1,7 @@
+{
+    "id": "trackwalker-client",
+    "name": "Trackwalker",
+    "version": "0.0.1",
+    "description": "The client for Trackwalker, a CrossCode pseudo-multiplayer mod.",
+    "prestart": "dist/prestart.js"
+}

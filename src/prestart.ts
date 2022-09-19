@@ -1,12 +1,10 @@
 import tryConnect from "./lib/tryConnect";
-import playerHandlers from "./lib/playerHandlers";
+import localPlayerHandlers from "./lib/handlers/localPlayer";
+import remotePlayerHandlers from "./lib/handlers/remotePlayer";
 
 const socket = tryConnect();
 
 socket.on("connect", () => {
-    playerHandlers(socket);
-
-    socket.on("playerUpdate", (playerName, pos) => {
-        console.log(playerName, pos);
-    });
+    localPlayerHandlers(socket);
+    remotePlayerHandlers(socket);
 });

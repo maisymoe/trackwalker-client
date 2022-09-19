@@ -6,7 +6,7 @@ export default function(socket: Socket) {
             this.parent();
             // @ts-expect-error
             if (this.coll.vel.x !== 0 || this.coll.vel.y !== 0) {
-                socket.emit("updatePosition", {
+                socket.emit("positionUpdate", {
                     ...this.coll.pos,
                     // @ts-expect-error
                     roomName: ig.game.mapName,

@@ -8,7 +8,7 @@ export default function() {
         throw new Error("Server URL invalid!");
     }
 
-    const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(serverUrl, {
+    const socket: Socket<ClientToServerEvents, ServerToClientEvents> = io(serverUrl, {
         autoConnect: false,
     });
 

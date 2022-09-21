@@ -16,10 +16,18 @@ export default function(socket: Socket) {
         entity?.kill();
         playerEntities.delete(player.id);
     });
-    socket.on("playerUpdate", (player: Player, pos: Position) => { 
+    socket.on("playerPositionUpdate", (player: Player, pos: Position) => { 
         // logger.log(`Player position update for ${player.username} (${player.id})\nroom: ${pos.roomName}\nx: ${pos.x}\ny: ${pos.y}\nz: ${pos.z}`);
         
         const entity = playerEntities.get(player.id);
         entity?.setPos(pos.x, pos.y, pos.z);
+    });
+    socket.on("playerAnimationUpdate", (player: Player, anim: string, direction: Vec2) => { 
+        const entity = playerEntities.get(player.id);
+
+        // @ts-expect-error
+        entity!.face = direction;
+        // @ts-expect-error
+        entity?.setCurrentAnim(anim);
     });
 }

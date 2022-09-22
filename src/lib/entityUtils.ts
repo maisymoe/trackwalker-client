@@ -6,7 +6,7 @@ export const loadEntity = async(): Promise<void> => new Promise((resolve) => new
 
 export async function spawnPlayerEntity(player: Player) {
     // @ts-expect-error
-    if (!ig.game.mapName || ig.game.entities <= 0) return;
+    if (!ig.game.mapName || ig.game.entities.length <= 0) return;
 
     await loadEntity();
 
@@ -26,6 +26,15 @@ export async function spawnPlayerEntity(player: Player) {
     entity.proxies = ig.game.playerEntity.proxies;
 
     playerEntities.set(player.id, entity);
+}
+
+export async function destroyPlayerEntity(player: Player) {
+    const entity = playerEntities.get(player.id);
+
+    if (entity) {
+        entity.kill();
+        playerEntities.delete(player.id);
+    }
 }
 
 export async function spawnEntities(socket: Socket, players: Player[]) {

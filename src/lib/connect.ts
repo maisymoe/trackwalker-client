@@ -1,5 +1,5 @@
 import { io, Socket } from "socket.io-client";
-import logger from "./logger";
+import { log, error } from "./logger";
 
 export default function() {
     const serverUrl = prompt("Please enter the URL of the server you wish to connect to (formatted as ws://127.0.0.1:3000).");
@@ -19,16 +19,17 @@ export default function() {
         username: username || "Lea",
     }
 
-    logger.log(`Attempting to connect to ${serverUrl}...`);
+    log(`Attempting to connect to ${serverUrl}...`);
 
+    // TODO: This error handling does not work. Why?
     try {
         socket.connect();
     } catch(e) {
-        logger.error(`Failed to connect! ${e}`);
+        error(`Failed to connect! ${e}`);
         throw new Error("Failed to connect to the server...");
     }
 
-    logger.log("Connected!");
+    log("Connected!");
 
     return socket;
 }

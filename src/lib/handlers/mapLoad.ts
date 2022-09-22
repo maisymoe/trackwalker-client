@@ -1,5 +1,5 @@
 import { Socket } from "socket.io-client";
-import spawnPlayerEntity, { playerEntities } from "../spawnPlayerEntity";
+import { spawnEntities } from "../entityUtils";
 
 export default function(socket: Socket) {
     const orig = ig.game.loadLevel;
@@ -9,12 +9,5 @@ export default function(socket: Socket) {
         return result;
     };
 
-    socket.on("recievePlayers", async (players: Player[]) => {
-        const filteredPlayers = players.filter(p => p.id !== socket.id);
-        playerEntities.clear();
-
-        for (let player of filteredPlayers) {
-            await spawnPlayerEntity(player);
-        };
-    });
+    socket.on("recievePlayers", async (players: Player[]) => spawnEntities(socket, players));
 };

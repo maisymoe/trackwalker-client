@@ -1,8 +1,10 @@
-import loadEntity from "./loadEntity";
+import { Socket } from "socket.io-client";
 
 export const playerEntities = new Map<string, ig.Entity>();
 
-export default async function(player: Player) {
+export const loadEntity = async(): Promise<void> => new Promise((resolve) => new sc.EnemyType("multiplayer").load(() => resolve()));
+
+export async function spawnPlayerEntity(player: Player) {
     // @ts-expect-error
     if (!ig.game.mapName || ig.game.entities <= 0) return;
 
@@ -24,4 +26,13 @@ export default async function(player: Player) {
     entity.proxies = ig.game.playerEntity.proxies;
 
     playerEntities.set(player.id, entity);
+}
+
+export async function spawnEntities(socket: Socket, players: Player[]) {
+    const filteredPlayers = players.filter(p => p.id !== socket.id);
+    playerEntities.clear();
+
+    for (let player of filteredPlayers) {
+        await spawnPlayerEntity(player);
+    };
 }

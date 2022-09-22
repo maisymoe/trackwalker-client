@@ -1,16 +1,15 @@
 import { Socket } from "socket.io-client";
-import logger from "../logger";
-
-import spawnPlayerEntity, { playerEntities } from "../spawnPlayerEntity";
+import { spawnPlayerEntity, playerEntities } from "../entityUtils";
+import { log } from "../logger";
 
 export default function(socket: Socket) {
     socket.on("playerJoin", async (player: Player) => { 
-        logger.log(`${player.username} (${player.id}) joined`);
+        log(`${player.username} (${player.id}) joined`);
 
         await spawnPlayerEntity(player);
     });
     socket.on("playerLeave", (player: Player) => { 
-        logger.log(`${player.username} (${player.id}) left`);
+        log(`${player.username} (${player.id}) left`);
         const entity = playerEntities.get(player.id);
 
         if (entity) {
@@ -27,7 +26,7 @@ export default function(socket: Socket) {
         }
     });
     socket.on("playerAnimationUpdate", (player: Player, anim: string, direction: Vec2) => { 
-        logger.log(`Player animation update for ${player.username} (${player.id})\nanim: ${anim}\ndirectionX: ${direction.x}\ndirectionY: ${direction.y}`);
+        // logger.log(`Player animation update for ${player.username} (${player.id})\nanim: ${anim}\ndirectionX: ${direction.x}\ndirectionY: ${direction.y}`);
         const entity = playerEntities.get(player.id);
 
         if (entity) {

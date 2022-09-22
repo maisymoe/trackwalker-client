@@ -5,7 +5,7 @@ export default function(socket: Socket) {
         update() {
             this.parent();
             // TODO: Reduce the update count - check whether anim or direction is different to last
-            // This should also maintian the diagonal direction
+            // This should also maintain the diagonal direction
             socket.emit("animationUpdate", this.currentAnim, this.face);
 
             // @ts-expect-error

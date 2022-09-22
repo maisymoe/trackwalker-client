@@ -4,7 +4,7 @@ export const playerEntities = new Map<string, ig.Entity>();
 
 export default async function(player: Player) {
     // @ts-expect-error
-    if (!ig.game.mapName) return;
+    if (!ig.game.mapName || ig.game.entities <= 0) return;
 
     await loadEntity();
 

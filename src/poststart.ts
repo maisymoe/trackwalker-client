@@ -7,9 +7,7 @@ import keybindHandlers from "./lib/handlers/keybind";
 // TODO: Move connection to a button on TitleScreenGui
 const socket = connect();
 
-socket.on("connect", () => {
-    localPlayerHandlers(socket);
-    remotePlayerHandlers(socket);
-    mapLoadHandlers(socket);
-    keybindHandlers(socket);
-});
+localPlayerHandlers(socket);
+remotePlayerHandlers(socket);
+mapLoadHandlers(socket);
+keybindHandlers(socket);

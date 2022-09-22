@@ -2,8 +2,8 @@ import { build } from "esbuild";
 
 try {
     await build({
-        entryPoints: ["./src/prestart.ts"],
-        outfile: "./dist/prestart.js",
+        entryPoints: ["./src/poststart.ts"],
+        outfile: "./dist/poststart.js",
         minify: true,
         bundle: true,
         format: "iife",
